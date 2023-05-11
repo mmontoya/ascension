@@ -1,0 +1,56 @@
+{
+  "name": "ascension",
+  "version": "1.0.0",
+  "description": "A pixel platformer",
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" exit 1",
+    "start": "webpack serve --mode development",
+    "build": "webpack --mode production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mmontoya/ascension.git"
+  },
+  "keywords": [
+    "pixel",
+    "game",
+    "platformer"
+  ],
+  "author": "Michael & Bruno Montoya",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mmontoya/brunaldi/issues"
+  },
+  "homepage": "https://github.com/mmontoya/brunaldi#readme",
+  "dependencies": {
+    "phaser": "^3.60.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.21.8",
+    "@babel/preset-env": "^7.21.5",
+    "@types/node": "^20.1.0",
+    "@typescript-eslint/eslint-plugin": "^5.59.2",
+    "@typescript-eslint/parser": "^5.59.2",
+    "babel-loader": "^9.1.2",
+    "clean-webpack-plugin": "^4.0.0",
+    "copy-webpack-plugin": "^11.0.0",
+    "cross-env": "^7.0.3",
+    "css-loader": "^6.7.3",
+    "eslint": "^8.40.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "file-loader": "^6.2.0",
+    "html-loader": "^4.2.0",
+    "html-webpack-plugin": "^5.5.1",
+    "json-loader": "^0.5.7",
+    "prettier": "^2.8.8",
+    "style-loader": "^3.3.2",
+    "terser-webpack-plugin": "^5.3.8",
+    "ts-loader": "^9.4.2",
+    "typescript": "^5.0.4",
+    "webpack": "^5.82.0",
+    "webpack-cli": "^5.1.0",
+    "webpack-dev-server": "^4.15.0"
+  }
+}

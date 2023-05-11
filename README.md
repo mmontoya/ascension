@@ -1,2 +1,3 @@
-# brunaldi
-A cool pixel art game
+# Ascension
+
+A pixel art puzzle platformer
