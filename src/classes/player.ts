@@ -6,6 +6,12 @@ export class Player extends Actor {
     private keyS: Phaser.Input.Keyboard.Key;
     private keyD: Phaser.Input.Keyboard.Key;
     private keySpace: Phaser.Input.Keyboard.Key;
+    //private leftStick: Phaser.Math.Vector2;
+    private gp!: typeof Phaser.Input.Gamepad;
+    private SPEED = 110;
+
+    private attackButtonPressed = false;
+    private lastPressTime = 0;
 
     constructor(scene: Phaser.Scene, x: number, y: number) {
         super(scene, x, y, 'king');
@@ -29,8 +35,33 @@ export class Player extends Actor {
         })
 
     }
+  
+
+    handleButtonPress(): void {
+        // The L2 Button is a continuous trigger so we set a flag 
+        // to set some rate limiting
+        const currentTime = Date.now();
+        const elapsedTime = currentTime - this.lastPressTime;
+        const COOLDOWN_PERIOD = 50;
+
+        if (this.attackButtonPressed && elapsedTime < COOLDOWN_PERIOD) {
+            this.handleButtonRelease();
+        } else {
+            //console.log('Button pressed')
+             this.anims.play('attack', true);
+        }
+
+        this.attackButtonPressed = true;
+        this.lastPressTime = currentTime;
+    }
+
+    handleButtonRelease(): void {
+        this.attackButtonPressed = false;
+    }
 
     update(): void {
+        const [gp] = navigator.getGamepads();
+
         this.getBody().setVelocity(0);
         if (this.keyW.isDown) {
             this.body!.velocity.y = -110;
@@ -52,7 +83,25 @@ export class Player extends Actor {
             this.getBody().setOffset(15, 15);
             !this.anims.isPlaying && this.anims.play('run', true);
         }
-        
+        // The X-axis
+        if (gp && (gp.axes[0] > 0.1 || gp.axes[0] < -0.1)) {
+            this.body!.velocity.x = this.SPEED * gp?.axes[0]
+            this.checkFlip();
+            this.getBody().setOffset(48, 15);
+            !this.anims.isPlaying && this.anims.play('run', true);
+        }
+        // The Y-axis
+        if (gp && (gp.axes[1] > 0.1 || gp.axes[1] < -0.1)) {
+          this.body!.velocity.y = this.SPEED * gp.axes[1];
+          this.checkFlip();
+          this.getBody().setOffset(15, 15);
+          !this.anims.isPlaying && this.anims.play('run', true);
+        }
+        // L2 Button
+        if (gp && (gp.buttons[6].pressed)) {
+            this.handleButtonPress();
+        }
+
     }
 
     private initAnimations(): void {
